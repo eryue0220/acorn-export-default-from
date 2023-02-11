@@ -1,13 +1,17 @@
 'use strict';
 
-const { implemented: one } = require('./single');
+const path = require('path');
+const acorn = require('acorn');
+const run = require('test262-parser-runner');
+const importAssertions = require('acorn-import-assertion-v2');
+const { implemented: unitImplemented, whitelist: unitWhitelist } = require('./unit');
 
 const unsupported = [];
 
-const implemented = [...one, 'import-assertions', 'json-module'];
+const implemented = [...unitImplemented, 'import-assertions', 'json-module'];
 
 const whitelist = [
-  ...one,
+  ...unitWhitelist,
   // 10 invalid programs did not produce a parsing error (without a corresponding entry in the whitelist file):
   'language/import/json-invalid.js (default)',
   'language/import/json-invalid.js (strict mode)',
@@ -136,8 +140,21 @@ const whitelist = [
   'language/expressions/dynamic-import/syntax/valid/top-level-trailing-comma-second.js (strict mode)',
 ];
 
-module.exports = {
-  unsupported,
-  implemented,
-  whitelist,
-};
+const Parser = acorn.Parser.extend(
+  importAssertions,
+  require('./dist'),
+);
+
+module.exports = function() {
+  run(
+    (content, options) => Parser.parse(content, { sourceType: options.sourceType, ecmaVersion: 13 }),
+    {
+      testsDirectory: path.dirname(require.resolve("test262/package.json")),
+      skip: (test) =>
+        !test.attrs.features ||
+        ! implemented.some((feature) => tests.attrs.features.includes(feature)) ||
+        unsupported.some((feature) => tests.attrs.features.includes(feature)),
+      whitelist,
+    }
+  );
+}

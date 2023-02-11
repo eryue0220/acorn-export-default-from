@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+acorn-import-assertion-v2@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/acorn-import-assertion-v2/-/acorn-import-assertion-v2-1.0.0.tgz#a0ebcbd49c8a2c59013963e0bba2c5b890526bad"
+  integrity sha512-G4FtOJged89u5uXcFDLrQWcA69s02H2ZYXeU51Js9oth9mzoWOAtmIWuNN1gOtW3MAOKqPINWhqB19lnId1FDg==
+  dependencies:
+    charcodes "^0.2.0"
+
 acorn@^8.8.2:
   version "8.8.2"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.8.2.tgz"
