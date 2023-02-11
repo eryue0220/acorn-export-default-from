@@ -1,0 +1,39 @@
+{
+  "name": "acorn-export-from-default",
+  "version": "1.0.0",
+  "description": "proposal export from default impl plugin in acorn",
+  "main": "dist/index.js",
+  "module": "src/index.js",
+  "scripts": {
+    "build": "rollup -c rollup.config.mjs",
+    "ci": "npm run test",
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eryue0220/acorn-export-from-default.git"
+  },
+  "keywords": [
+    "acorn",
+    "plugin",
+    "tc39",
+    "parser"
+  ],
+  "author": "eryue0220<eryue0220@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eryue0220/acorn-export-from-default/issues"
+  },
+  "homepage": "https://github.com/eryue0220/acorn-export-from-default#readme",
+  "dependencies": {
+    "charcodes": "^0.2.0"
+  },
+  "devDependencies": {
+    "acorn": "^8.8.2",
+    "rollup": "^3.15.0",
+    "test262-parser-runner": "^0.5.0"
+  },
+  "peerDependencies": {
+    "acorn": "^8.0.0"
+  }
+}
