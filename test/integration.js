@@ -142,7 +142,7 @@ const whitelist = [
 
 const Parser = acorn.Parser.extend(
   importAssertions,
-  require('./dist'),
+  require('../dist'),
 );
 
 module.exports = function() {

@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-acorn-import-assertion-v2@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/acorn-import-assertion-v2/-/acorn-import-assertion-v2-1.0.0.tgz#a0ebcbd49c8a2c59013963e0bba2c5b890526bad"
-  integrity sha512-G4FtOJged89u5uXcFDLrQWcA69s02H2ZYXeU51Js9oth9mzoWOAtmIWuNN1gOtW3MAOKqPINWhqB19lnId1FDg==
+acorn-import-assertion-v2@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/acorn-import-assertion-v2/-/acorn-import-assertion-v2-1.0.1.tgz#1943484840023e6dc9981943c1f047be79999aea"
+  integrity sha512-oaTEf/EKOO1j2A9Nz2HC//RLGUFikxuNStCtxoelvVVljVzh1XLaFGGLd3WCkvYILZ3H6zhcU82APCwI1IPnjg==
   dependencies:
     charcodes "^0.2.0"
 
@@ -133,3 +133,7 @@ test262-stream@^1.2.0:
 "test262@git+https://github.com/tc39/test262.git":
   version "5.0.0"
   resolved "git+https://github.com/tc39/test262.git#1c47728a20017ee67e23fdfacbc81d5f471a72ba"
+
+"test262@git+https://github.com/tc39/test262.git#b17b9411e0c5ffc3aa4c47248c7342941170205c":
+  version "5.0.0"
+  resolved "git+https://github.com/tc39/test262.git#b17b9411e0c5ffc3aa4c47248c7342941170205c"
