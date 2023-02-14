@@ -130,10 +130,6 @@ test262-stream@^1.2.0:
     js-yaml "^3.2.1"
     klaw "^2.1.0"
 
-"test262@git+https://github.com/tc39/test262.git":
+"test262@git+https://github.com/tc39/test262.git", "test262@git+https://github.com/tc39/test262.git#1c47728a20017ee67e23fdfacbc81d5f471a72ba":
   version "5.0.0"
   resolved "git+https://github.com/tc39/test262.git#1c47728a20017ee67e23fdfacbc81d5f471a72ba"
-
-"test262@git+https://github.com/tc39/test262.git#b17b9411e0c5ffc3aa4c47248c7342941170205c":
-  version "5.0.0"
-  resolved "git+https://github.com/tc39/test262.git#b17b9411e0c5ffc3aa4c47248c7342941170205c"
