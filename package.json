@@ -1,7 +1,7 @@
 {
-  "name": "acorn-export-from-default",
+  "name": "acorn-export-default-from",
   "version": "1.0.0-beta.2",
-  "description": "proposal export from default impl plugin in acorn",
+  "description": "proposal export default from impl plugin in acorn",
   "main": "dist/index.js",
   "module": "src/index.js",
   "scripts": {
