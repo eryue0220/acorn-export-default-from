@@ -32,7 +32,7 @@
     "acorn": "^8.8.2",
     "acorn-import-assertion-v2": "^1.0.1",
     "rollup": "^3.15.0",
-    "test262": "git+https://github.com/tc39/test262.git#b17b9411e0c5ffc3aa4c47248c7342941170205c",
+    "test262": "git+https://github.com/tc39/test262.git#1c47728a20017ee67e23fdfacbc81d5f471a72ba",
     "test262-parser-runner": "^0.5.0"
   },
   "peerDependencies": {

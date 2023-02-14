@@ -1,7 +1,10 @@
 import acorn from 'acorn';
+import { isWhitespace } from './util';
 
 const { TokenType, tokTypes: tt } = acorn;
 const assert = 'assert';
+const FUNC_STATEMENT = 1;
+const FUNC_NULLABLE_ID = 4;
 
 tt._assert = new TokenType(assert, { keyword: assert });
 
@@ -10,6 +13,28 @@ export default function exportDefaultFromPlugin(Parser) {
   return class extends Parser {
     supportImportAssertions() {
       return typeof this.parseImportAssertions === 'function';
+    }
+
+    lookahead(word) {
+      let out = '';
+      let i = 0;
+
+      for (;;i++) {
+        if (isWhitespace(this.input.charCodeAt(this.pos + i))) {
+          continue;
+        }
+        break;
+      }
+
+      for (;;i++) {
+        const code = this.input.charCodeAt(this.pos + i);
+        if (isWhitespace(code)) {
+          break;
+        }
+        out += this.input[this.pos + i];
+      }
+
+      return out === word;
     }
 
     shouldParseExportStatement() {
@@ -25,7 +50,7 @@ export default function exportDefaultFromPlugin(Parser) {
       return node;
     }
 
-    parseExportAsNamespace(node) {
+    parseExportAsNamespace(node, exports) {
       if (this.options.ecmaVersion >= 11) {
         if (this.eatContextual('as')) {
           node.exported = this.parseModuleExportName();
@@ -38,10 +63,9 @@ export default function exportDefaultFromPlugin(Parser) {
 
     parseExport(node, exports) {
       this.next();
-      debugger;
 
-      if (this.eat(tt.start)) {
-        this.parseExportAsNamespace(node);
+      if (this.eat(tt.star)) {
+        this.parseExportAsNamespace(node, exports);
         this.expectContextual('from');
         if (this.type !== tt.string) this.unexpected();
         node.source = this.parseExprAtom();
@@ -65,19 +89,19 @@ export default function exportDefaultFromPlugin(Parser) {
         } else if (this.type === tt._class) {
           let cNode = this.startNode();
           node.declaration = this.parseClass(cNode, 'nullableID');
-        } else if (this.expectContextual('from')) { // export default from '...';
+        } else if (this.eatContextual('from')) { // export default from '...';
           this.next();
-          debugger;
+          node.source = this.parseExprAtom();
         } else {
           node.declaration = this.parseMaybeAssign();
           this.semicolon();
         }
       } else if (this.shouldParseExportStatement()) {
-        if (this.type === tt.name) {
+        if (this.type === tt.name && this.lookahead('from')) {
           node.specifiers = [this.parseExportSpecifier(exports)];
           if (this.eat(tt.comma)) {
             if (this.eat(tt.star)) {
-              this.parseExportAsNamespace(node);
+              this.parseExportAsNamespace(node, exports);
             }
           }
           this.expectContextual('from');
@@ -92,11 +116,12 @@ export default function exportDefaultFromPlugin(Parser) {
           }
           node.specifiers = [];
           node.source = null;
+
+          if (this.supportImportAssertions()) {
+            node.attributes = this.parseImportAssertions(node);
+          }
         }
 
-        if (this.supportImportAssertions()) {
-          node.attributes = this.parseImportAssertions(node);
-        }
         this.semicolon();
       } else {
         node.declaration = null;
@@ -120,6 +145,8 @@ export default function exportDefaultFromPlugin(Parser) {
           }
           node.source = null;
         }
+
+        this.semicolon();
       }
 
       return this.finishNode(node, 'ExportNamedDeclaration');
