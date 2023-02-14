@@ -16,8 +16,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 18.x
-      - run: npm install yarn
-      - run: yarn
+      - run: npm install
       - run: npm test
 
   publish-npm:
@@ -29,8 +28,7 @@ jobs:
         with:
           node-version: 18.x
           registry-url: https://registry.npmjs.org/
-      - run: npm install yarn
-      - run: yarn
+      - run: npm install
       - run: npm run build
       - run: npm publish
         env:
